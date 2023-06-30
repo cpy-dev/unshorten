@@ -4,9 +4,14 @@ import requests
 import sys
 
 def unshorten(link):
-    session = requests.Session()
-    response = session.head(link, allow_redirects=True)
-    return response.url
+    if 'https://' not in link and 'http://' not in link:
+        link = 'https://' + link
+    try:
+        session = requests.Session()
+        response = session.head(link, allow_redirects=True)
+        return response.url
+    except:
+        return "Unable to retrieve the target link"
 
 if __name__ == '__main__':
     args = sys.argv
