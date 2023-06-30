@@ -1,0 +1,36 @@
+#!/usr/bin/python3
+
+import requests
+import sys
+
+def unshorten(link):
+    session = requests.Session()
+    response = session.head(link, allow_redirects=True)
+    return response.url
+
+if __name__ == '__main__':
+    args = sys.argv
+    concise = False
+    if '-c' in args or '--concise' in args:
+        concise = True
+        try:
+            args.remove('-c')
+        except: pass
+
+        try: 
+            args.remove('--concise')
+        except: pass
+        
+    if len(sys.argv) == 1:
+        print('No url provided: Exiting')
+        sys.exit(0)
+
+    url = sys.argv[1]
+    target = unshorten(url)
+
+    if concise:
+        print(target)
+
+    else:
+        print(f'Provided url -> {url}')
+        print(f'Unshortened url -> {target}')
