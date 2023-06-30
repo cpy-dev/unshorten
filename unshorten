@@ -11,6 +11,16 @@ def unshorten(link):
 if __name__ == '__main__':
     args = sys.argv
     concise = False
+
+    if '-h' in args or '--help' in args:
+        print('''Url unshortener written in Python
+usage: unshorten URL [OPTIONS]
+
+Options:
+    -c, --concise       Show output in concise form (only the response url)
+    -h, --help          Show this message and exit''')
+        sys.exit(0)
+
     if '-c' in args or '--concise' in args:
         concise = True
         try:
